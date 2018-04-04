@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="viewport" content='initial-scale=1, maximum-scale=5, minimum-scale=0, user-scalable=no'>
+	<script>(function(){var width=window.outerWidth,meta=document.getElementsByTagName('meta')[0];meta.content='initial-scale='+width/750+',maximum-scale=5,minimum-scale=0,user-scalable=no';window.onresize=function(){width=window.outerWidth;meta.content='initial-scale='+width/750+',maximum-scale=5,minimum-scale=0,user-scalable=no'}})();</script>
+	<meta charset="UTF-8" />
+	<title></title>
+	<style>
+		html *{
+			box-sizing: border-box;
+		}
+		body{
+			margin: 0 auto;
+			width: 750px;
+			text-align: center;
+		}
+		#clip{
+			width: 450px;
+			height: 600px;
+			margin: 0 auto;
+			padding: 10px;
+			border: 1px solid black;
+			background-color: #dfdfdf;
+			float: left;
+		}
+		.img-box{
+			display: table-cell;
+			text-align: center;
+			float: left;
+			border-right: 1px solid #9D9DFF;
+			border-bottom: 1px solid #9D9DFF;
+			background-color: rgba(200,200,200,.1);
+		}
+		.img-box.a{
+			width: 300px;
+			height: 300px;
+		}
+		.img-box.b{
+			width: 200px;
+			height: 200px;
+		}
+		.img-box.c{
+			width: 100px;
+			height: 100px;
+		}
+		.img-box.d{
+			width: 50px;
+			height: 50px;
+		}
+		.img{
+			vertical-align: middle;
+			max-width: 100%;
+			max-height: 100%;
+		}
+		.btn-box{
+			clear: both;
+			padding-top: 10px;
+		}
+		#label{
+			display: block;
+			width: 750px;
+			padding: 30px 0;
+			font-size: 40px;
+			color: #fff;
+			line-height: 1;
+			text-align: center;
+			background-color: #9D9DFF;
+			border-radius: 5px;
+		}
+		#file{
+			position: absolute;
+			width: 0;
+			height: 0;
+			opacity: 0;
+		}
+		#button, #refresh{
+			display: block;
+			width: 750px;
+			padding: 30px;
+			margin: 10px auto;
+			font-size: 40px;
+			color: #fff;
+			line-height: 1;
+			background-color: #9D9DFF;
+			border: none;
+			border-radius: 5px;
+		}
+		#img{
+			display: block;
+			max-width: 100%;
+			margin: 0 auto;
+		}
+	</style>
+</head>
+<body>
+	<div id="clip"></div>
+
+	<div class="img-box a">
+		<img src="" class="img">
+	</div>
+	<div class="img-box b">
+		<img src="" class="img">
+	</div>
+	<div class="img-box c">
+		<img src="" class="img">
+	</div>
+	<div class="img-box c">
+		<img src="" class="img">
+	</div>
+	<div class="img-box c">
+		<img src="" class="img">
+	</div>
+	<div class="img-box c">
+		<img src="" class="img">
+	</div>
+	<div class="img-box d">
+		<img src="" class="img">
+	</div>
+	<div class="img-box d">
+		<img src="" class="img">
+	</div>
+	<div class="img-box d">
+		<img src="" class="img">
+	</div>
+	<div class="img-box d">
+		<img src="" class="img">
+	</div>
+
+	<div class="btn-box">
+		<label for="file" id="label">选 择 图 片</label>
+		<input type="file" id="file" accept="image/png,image/gif,image/jpeg"/>
+		<button type="button" id="button">确 定 裁 剪</button>
+		<button type="button" id="refresh">重 &#x3000; &#x3000; 置</button>
+	</div>
+
+	<img src="" id="img">
+
+	<script src="image-clip.js"></script>
+	<script src="https://jhinsama.github.io/public/js/exif.min.js"></script>
+	<script src="https://jhinsama.github.io/public/js/jquery.2.2.1.min.js"></script>
+
+	<script>
+
+var a;
+window.onload = function () {
+	a = new Clip(document.getElementById("clip"),{
+		size : {
+			w : 360,
+			h : 480
+		}
+		,min : 750
+		,image : $(".img")
+	});
+
+	document.getElementById("file").addEventListener("change",function(){
+		a.start(this.files[0])
+	})
+
+	document.getElementById("button").addEventListener("click",function(){
+		a.end(function (src) {
+			document.getElementById("img").src = src;
+		})
+	})
+
+	document.getElementById("refresh").addEventListener("click",function(){
+		document.getElementById("file").value = "";
+		a.refresh();
+	})
+}
+
+	</script>
+</body>
+</html>
